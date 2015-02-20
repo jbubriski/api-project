@@ -28,7 +28,17 @@
                         console.log(d);
 
                         self.requestMade(true);
-                        self.pictures(d.photos.photo);
+                        self.pictures(d.photos.photo.slice(0, 25));
+
+
+                        var $container = $('#container');
+                        
+                        $container.imagesLoaded(function() {
+                            $container.masonry({
+                                columnWidth: 200,
+                                itemSelector: 'div'
+                            });
+                        });
                     },
                     error: function () {
                         alert('Failure getting picture data.');

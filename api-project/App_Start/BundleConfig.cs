@@ -27,9 +27,11 @@ namespace api_project
 
             bundles.Add(new ScriptBundle("~/bundles/all").Include(
                         "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery.imagesloaded.js",
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/respond.js",
-                        "~/Scripts/knockout-{version}.js"));
+                        "~/Scripts/knockout-{version}.js",
+                        "~/Scripts/masonry.pkgd.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/home").Include(
                         "~/Scripts/home*"));

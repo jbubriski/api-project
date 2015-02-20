@@ -26,9 +26,15 @@
 <h2 style="display: none" data-bind="visible: pictures().length == 0 && requestMade()">No Images Found Near You!?</h2>
 <h2 style="display: none" data-bind="visible: pictures().length > 0 && requestMade">We Found Some Images Near You...</h2>
 
-<div data-bind="foreach: pictures">
+<div id="container" data-bind="foreach: pictures">
     <div><img data-bind="attr: { src: 'https://farm' + farm + '.staticflickr.com/' + server + '/' + id + '_' + secret + '.jpg', alt: title }" class="img-thumbnail" /></div>
 </div>
+
+<style type="text/css">
+    #container img {
+        width: 200px;
+    }
+</style>
 
 @section scripts
 {
