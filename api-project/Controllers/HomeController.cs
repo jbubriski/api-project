@@ -16,11 +16,15 @@ namespace api_project.Controllers
         // WPI
         public string _defaultIp = "130.215.6.1";
 
-        public string ApiKey { get; set; }
+        public string GeoIpEndpoint { get; set; }
+        public string FlickrApiKey { get; set; }
+        public string FlickrEndpoint { get; set; }
 
         public HomeController()
         {
-            ApiKey = WebConfigurationManager.AppSettings["Mashape.ApiKey"];
+            GeoIpEndpoint = WebConfigurationManager.AppSettings["GeoIpEndpoint"];
+            FlickrApiKey = WebConfigurationManager.AppSettings["Flickr.ApiKey"];
+            FlickrEndpoint = WebConfigurationManager.AppSettings["Flickr.Endpoint"];
         }
 
         public ActionResult Index()
@@ -30,76 +34,72 @@ namespace api_project.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
-        public ActionResult Contact()
+        public async Task<ActionResult> GetLocationInfo()
         {
-            ViewBag.Message = "Your contact page.";
+            var locationInfoRaw = await GetLocationInfoRaw();
 
-            return View();
+            return Content(locationInfoRaw, "application/json");
         }
 
-        public async Task<ActionResult> GetPicturesNearMe()
+        public async Task<ActionResult> GetPicturesNearMe(decimal latitude, decimal longitude)
         {
-            var locationInfo = await GetLocationInfo();
-            var pictures = await GetPictureInfo(locationInfo.Latitude, locationInfo.Longitude);
+            var pictureListRaw = await GetPictureListRaw(latitude, longitude);
 
-            return Content(pictures, "application/json");
+            return Content(pictureListRaw, "application/javascript");
         }
 
-        private async Task<LocationInfo> GetLocationInfo()
+        private async Task<string> GetLocationInfoRaw()
         {
-            var ipEndpoint = WebConfigurationManager.AppSettings["Mashape.IpEndpoint"];
             var userIp = Request.IsLocal ? _defaultIp : Request.UserHostAddress;
 
-            var request = new RestRequest(Method.POST);
+            var request = new RestRequest(Method.GET);
 
-            request.AddHeader("X-Mashape-Key", ApiKey);
-            request.AddParameter("ip", userIp);
+            var restClient = new RestClient(GeoIpEndpoint + userIp + "/json");
 
-            var restClient = new RestClient(ipEndpoint);
-
-            // Sample Repsonse:
+            // Sample response:
             //{
-            //  "region": "Virginia",
-            //  "valid": true,
-            //  "hostname": "",
-            //  "longitude": -77.48748779296875,
-            //  "latitude": 39.04372024536133,
-            //  "country-code": "US",
-            //  "city": "Ashburn",
-            //  "country": "United States"
+            //    "ip": "71.248.188.119",
+            //    "hostname": "static-71-248-188-119.bstnma.fios.verizon.net",
+            //    "city": "Westborough",
+            //    "region": "Massachusetts",
+            //    "country": "US",
+            //    "loc": "42.2658,-71.6105",
+            //    "org": "AS701 MCI Communications Services, Inc. d/b/a Verizon Business",
+            //    "postal": "01581"
             //}
 
-            var response = await restClient.ExecuteTaskAsync<dynamic>(request);
+            var response = await restClient.ExecuteTaskAsync(request);
 
-            // Not perfect, but good enough
-            return JsonConvert.DeserializeObject<LocationInfo>(response.Content);
+            return response.Content;
         }
 
-        private async Task<string> GetPictureInfo(decimal latitude, decimal longitude)
+        private async Task<string> GetPictureListRaw(decimal latitude, decimal longitude)
         {
-            var ipEndpoint = WebConfigurationManager.AppSettings["Mashape.ImageEndpoint"];
-            var userIp = Request.IsLocal ? "134.170.188.221" : Request.UserHostAddress;
-
             var request = new RestRequest(Method.POST);
 
-            request.AddHeader("X-Mashape-Key", ApiKey);
+            request.AddQueryParameter("api_key", FlickrApiKey);
 
-            request.AddQueryParameter("lang", "en");
+            request.AddQueryParameter("method", "flickr.photos.search");
+            request.AddQueryParameter("format", "json");
+
+            // Safe
+            request.AddQueryParameter("safe_search", "1");
+
+            // Pictures
+            request.AddQueryParameter("content_type", "1");
+
+            // No license
+            request.AddQueryParameter("license", "1");
 
             // North, South, East, West for a bounding box of locations.
-            request.AddQueryParameter("n", (latitude + .5m).ToString());
-            request.AddQueryParameter("s", (latitude - .5m).ToString());
-            request.AddQueryParameter("e", (longitude + .5m).ToString());
-            request.AddQueryParameter("w", (longitude - .5m).ToString());
+            request.AddQueryParameter("bbox", string.Format("{0},{1},{2},{3}", (longitude - 1m), (latitude - 1m), (longitude + 1m), (latitude + 1m)));
 
-            var restClient = new RestClient(ipEndpoint);
+            var restClient = new RestClient(FlickrEndpoint);
 
-            var response = await restClient.ExecuteTaskAsync<dynamic>(request);
+            var response = await restClient.ExecuteTaskAsync(request);
 
             return response.Content;
         }
