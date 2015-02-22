@@ -24,7 +24,7 @@ namespace api_project.Controllers
             return View();
         }
 
-        [OutputCache(Duration = 600, VaryByCustom = "")]
+        [OutputCache(Duration = 600, VaryByCustom = "ipAddress")]
         public async Task<ActionResult> GetLocationInfo()
         {
             var userIp = Request.UserHostAddress;
