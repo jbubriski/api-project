@@ -47,18 +47,21 @@
             <img data-bind="attr: { src: $root.pictureUrl($data), alt: title }" class="img-thumbnail" />
         </div>
         <div class="back">
-            <span data-bind="html: title"></span>
-            <br />
-            <br />
-            By <span data-bind="html: ownername"></span>
-            <br />
-            Taken <span data-bind="html: datetaken"></span>
-            <br />
-            At <span data-bind="html: latitude"></span>, <span data-bind="html: longitude"></span>
-            <br />
-            <a data-bind="attr: { href: $root.picturePageUrl($data) }">View image on Flickr</a>
-            <br />
-            <a data-bind="attr: { href: $root.userUrl($data) }">View user on Flickr</a>
+            <button class="btn btn-default close-button">x</button>
+            <div class="picture-meta-data">
+                <span data-bind="html: title"></span>
+                <br />
+                <br />
+                By <span data-bind="html: ownername"></span>
+                <br />
+                Taken <span data-bind="html: datetaken"></span>
+                <br />
+                At <span data-bind="html: latitude"></span>, <span data-bind="html: longitude"></span>
+                <br />
+                <a data-bind="attr: { href: $root.picturePageUrl($data) }">View image on Flickr</a>
+                <br />
+                <a data-bind="attr: { href: $root.userUrl($data) }">View user on Flickr</a>
+            </div>
         </div>
     </div>
 </div>

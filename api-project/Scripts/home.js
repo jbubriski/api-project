@@ -95,6 +95,13 @@
                 });
             };
 
+            $('body.touch').on('click', '#container .picture .front', function () {
+                $(this).parent().addClass('hover');
+            });
+
+            $('body.touch').on('click', '#container .picture .back .close-button', function () {
+                $(this).parent().parent().removeClass('hover');
+            });
 
             var $container = $('#container');
 
