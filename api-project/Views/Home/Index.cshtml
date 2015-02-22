@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <p data-bind="visible: city()">It look like you live in or near <span data-bind="text: location"></span></p>
+        <p data-bind="visible: city()">It looks like you live in or near <span data-bind="text: location"></span></p>
     </div>
     <div class="col-md-4">
         <h2>Get more libraries</h2>
@@ -22,8 +22,8 @@
     </div>
 </div>
 
-<h2 data-bind="visible: pictures().length == 0 && !requestMade()">Finding Images Near You...</h2>
-<h2 style="display: none" data-bind="visible: pictures().length == 0 && requestMade()">No Images Found Near You!?</h2>
+<h2 data-bind="visible: pictures().length == 0 && !requestMade">Finding Images Near You...</h2>
+<h2 style="display: none" data-bind="visible: pictures().length == 0 && requestMade">No Images Found Near You!?</h2>
 <h2 style="display: none" data-bind="visible: pictures().length > 0 && requestMade">We Found Some Images Near You...</h2>
 
 <div id="container" data-bind="foreach: pictures">

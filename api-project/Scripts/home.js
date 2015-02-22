@@ -9,7 +9,7 @@
 
             self.pictures = ko.observableArray([]);
 
-            self.requestMade = ko.observable(false);;
+            self.requestMade = ko.observable(false);
 
             self.location = ko.computed(function () {
                 return self.city() + ', ' + self.region();
