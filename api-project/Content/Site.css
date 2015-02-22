@@ -42,7 +42,7 @@ input[type="checkbox"].input-validation-error {
 }
 
 #container .picture {
-    width: 200px;
+    width: 275px;
     position: relative;
 }
 
@@ -70,3 +70,8 @@ input[type="checkbox"].input-validation-error {
     #container .picture:hover .back {
         transform: rotateX(0deg) rotateY(0deg);
     }
+
+
+.panel {
+    height: 150px;
+}

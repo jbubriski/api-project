@@ -1,27 +1,47 @@
 ﻿@{
-    ViewBag.Title = "Find Images Near You!";
+    ViewBag.Title = "Home";
 }
-
-<div class="jumbotron">
-    <h1>@ViewBag.Title</h1>
+<div class="page-header">
+    <h1>Find Photos Near You!</h1>
 </div>
 
 <div class="row">
     <div class="col-md-4">
-        <p data-bind="visible: city()">It looks like you live in or near <span data-bind="text: location"></span></p>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">About You</h3>
+            </div>
+            <div class="panel-body">
+                <p data-bind="visible: city()">It looks like you live in or near <span data-bind="text: location"></span>.</p>
+            </div>
+        </div>
     </div>
     <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">About The Images</h3>
+            </div>
+            <div class="panel-body">
+                <p>All images found on Flickr, licensed under the <a href="https://creativecommons.org/licenses/by-sa/2.0/">Attribution-ShareAlike 2.0 Generic License (CC BY-SA 2.0)</a> (<a href="https://creativecommons.org/licenses/by-sa/2.0/legalcode">Full license text</a>).</p>
+            </div>
+        </div>
     </div>
     <div class="col-md-4">
-        All images found on Flickr, licensed under the <a href="https://creativecommons.org/licenses/by-sa/2.0/">Attribution-ShareAlike 2.0 Generic License (CC BY-SA 2.0)</a> (<a href="https://creativecommons.org/licenses/by-sa/2.0/legalcode">Full license text</a>).
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">About The Site</h3>
+            </div>
+            <div class="panel-body">
+                <p><a href="https://github.com/jbubriski/api-project/">Source code</a> hosted on GitHub.</p>
+            </div>
+        </div>
     </div>
 </div>
-
 <h2 data-bind="visible: pictures().length == 0 && !requestMade">Finding Images Near You...</h2>
 <h2 style="display: none" data-bind="visible: pictures().length == 0 && requestMade">No Images Found Near You!?</h2>
 <h2 style="display: none" data-bind="visible: pictures().length > 0 && requestMade">We Found Some Images Near You...</h2>
 
-<div id="container" data-bind="foreach: pictures">
+<div id="container" data-bind="foreach: { data: visiblePictures, afterAdd: appendToMasonry }">
     <div class="picture">
         <div class="front">
             <img data-bind="attr: { src: $root.pictureUrl($data), alt: title }" class="img-thumbnail" />
@@ -34,6 +54,8 @@
         </div>
     </div>
 </div>
+
+<button type="button" class="btn btn-lg btn-success" style="display: block; width: 100%; margin-top: 20px;" data-bind="visible: pictures().length > 0, click: loadMorePictures">Load More</button>
 
 @section scripts
 {

@@ -8,6 +8,7 @@
             self.country = ko.observable('');
 
             self.pictures = ko.observableArray([]);
+            self.visiblePictures = ko.observableArray([]);
 
             self.requestMade = ko.observable(false);
 
@@ -27,6 +28,21 @@
                 return 'https://www.flickr.com/people/' + picture.owner;
             };
 
+            self.appendToMasonry = function (element, index, data) {
+                var $container = $('#container');
+                
+                $(element).imagesLoaded(function () {
+                    $container.masonry('appended', element, true);
+                });
+            };
+
+            self.loadMorePictures = function () {
+                if (self.pictures().length < 25)
+                    return;
+
+                self.visiblePictures.splice.apply(self.visiblePictures, [self.visiblePictures().length, 0].concat(self.pictures.splice(0, 25)));
+            };
+
             self.loadPictures = function(latitude, longitude) {
                 $.ajax({
                     type: "POST",
@@ -40,17 +56,10 @@
                         console.log(d);
 
                         self.requestMade(true);
-                        self.pictures(d.photos.photo.slice(0, 25));
 
-
-                        var $container = $('#container');
+                        self.pictures(d.photos.photo);
                         
-                        $container.imagesLoaded(function() {
-                            $container.masonry({
-                                columnWidth: 200,
-                                itemSelector: 'div.picture'
-                            });
-                        });
+                        self.loadMorePictures();
                     },
                     error: function () {
                         alert('Failure getting picture data.');
@@ -82,6 +91,14 @@
                     }
                 });
             };
+
+
+            var $container = $('#container');
+
+            $container.masonry({
+                columnWidth: 275,
+                itemSelector: 'div.picture'
+            });
 
             self.loadContactInfo();
         };
