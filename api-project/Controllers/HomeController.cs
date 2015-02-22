@@ -15,7 +15,7 @@ namespace api_project.Controllers
     public class HomeController : Controller
     {
         // WPI
-        private string _defaultIp = "130.215.6.1";
+        private string _defaultIpAddress = "";
 
         public ActionResult Index()
         {
@@ -27,9 +27,14 @@ namespace api_project.Controllers
             return View();
         }
 
+        [OutputCache(Duration = 600, VaryByCustom = "")]
         public async Task<ActionResult> GetLocationInfo()
         {
-            var userIp = Request.IsLocal ? _defaultIp : Request.UserHostAddress;
+            var userIp = Request.UserHostAddress;
+
+            if (Request.IsLocal)
+                userIp = WebConfigurationManager.AppSettings["DefaultIpAddress"];
+
             var geoIpEndpoint = WebConfigurationManager.AppSettings["GeoIpEndpoint"];
 
             var locationService = new LocationService(geoIpEndpoint);
@@ -39,6 +44,7 @@ namespace api_project.Controllers
             return Content(locationInfoRaw, "application/json");
         }
 
+        [OutputCache(Duration = 600, VaryByParam = "*")]
         public async Task<ActionResult> GetPicturesNearMe(decimal latitude, decimal longitude)
         {
             var flickrApiKey = WebConfigurationManager.AppSettings["Flickr.ApiKey"];
