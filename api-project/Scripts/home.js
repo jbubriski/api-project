@@ -37,10 +37,13 @@
             };
 
             self.loadMorePictures = function () {
-                if (self.pictures().length < 25)
+                if (self.pictures().length == 0)
                     return;
 
-                self.visiblePictures.splice.apply(self.visiblePictures, [self.visiblePictures().length, 0].concat(self.pictures.splice(0, 25)));
+                var max = 25;
+                var count = self.pictures().length > max ? max : self.pictures().length;
+
+                self.visiblePictures.splice.apply(self.visiblePictures, [self.visiblePictures().length, 0].concat(self.pictures.splice(0, count)));
             };
 
             self.loadPictures = function(latitude, longitude) {
