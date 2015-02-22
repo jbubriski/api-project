@@ -34,8 +34,8 @@ namespace api_project.Services
             // Pictures
             request.AddQueryParameter("content_type", "1");
 
-            // No license
-            request.AddQueryParameter("license", "1");
+            // Attribution-ShareAlike License
+            request.AddQueryParameter("license", "5");
 
             // North, South, East, West for a bounding box of locations.
             request.AddQueryParameter("bbox", string.Format("{0},{1},{2},{3}", (longitude - 1m), (latitude - 1m), (longitude + 1m), (latitude + 1m)));
