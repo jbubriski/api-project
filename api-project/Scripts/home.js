@@ -95,11 +95,11 @@
                 });
             };
 
-            $('hmtl.touch').on('click', '#container .picture .front', function () {
+            $('html.touch body').on('click', '#container .picture .front', function () {
                 $(this).parent().addClass('hover');
             });
 
-            $('hmtl.touch').on('click', '#container .picture .back .close-button', function () {
+            $('html.touch body').on('click', '#container .picture .back .close-button', function () {
                 $(this).parent().parent().removeClass('hover');
             });
 
