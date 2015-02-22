@@ -14,7 +14,6 @@ namespace api_project.Controllers
 {
     public class HomeController : Controller
     {
-        // WPI
         private string _defaultIpAddress = "";
 
         public ActionResult Index()
