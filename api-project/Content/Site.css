@@ -47,10 +47,26 @@ input[type="checkbox"].input-validation-error {
 }
 
     #container .picture .front {
-        transform: rotateX(0deg) rotateY(0deg);
-        transform-style: preserve-3d;
-        backface-visibility: hidden;
-        transition: all .4s ease-in-out;
+        -webkit-transform:  rotateX(0deg) rotateY(0deg);
+        -moz-transform:     rotateX(0deg) rotateY(0deg);
+        -ms-transform:      rotateX(0deg) rotateY(0deg);
+        -o-transform:       rotateX(0deg) rotateY(0deg);
+        transform:          rotateX(0deg) rotateY(0deg);
+
+        -webkit-transform-style:    preserve-3d;
+        -moz-transform-style:       preserve-3d;
+        -ms-transform-style:        preserve-3d;
+        -o-transform-style:         preserve-3d;
+        transform-style:            preserve-3d;
+
+        -webkit-backface-visibility:    hidden;
+        backface-visibility:            hidden;
+
+        -webkit-transition: all .4s ease-in-out;
+        -moz-transition:    all .4s ease-in-out;
+        -ms-transition:     all .4s ease-in-out;
+        -o-transition:      all .4s ease-in-out;
+        transition:         all .4s ease-in-out;
     }
 
     #container .picture:hover .front {
@@ -61,15 +77,36 @@ input[type="checkbox"].input-validation-error {
         position: absolute;
         top: 0;
         left: 0;
-        transform: rotateY(-180deg);
-        transform-style: preserve-3d;
-        backface-visibility: hidden;
-        transition: all .4s ease-in-out;
         padding: 10px;
+
+        -webkit-transform:  rotateY(-180deg);
+        -moz-transform:     rotateY(-180deg);
+        -ms-transform:      rotateY(-180deg);
+        -o-transform:       rotateY(-180deg);
+        transform:          rotateY(-180deg);
+        
+        -webkit-transform-style:    preserve-3d;
+        -moz-transform-style:       preserve-3d;
+        -ms-transform-style:        preserve-3d;
+        -o-transform-style:         preserve-3d;
+        transform-style:            preserve-3d;
+
+        -webkit-backface-visibility:    hidden;
+        backface-visibility:            hidden;
+
+        -webkit-transition: all .4s ease-in-out;
+        -moz-transition:    all .4s ease-in-out;
+        -ms-transition:     all .4s ease-in-out;
+        -o-transition:      all .4s ease-in-out;
+        transition:         all .4s ease-in-out;
     }
 
     #container .picture:hover .back {
-        transform: rotateX(0deg) rotateY(0deg);
+        -webkit-transform:  rotateX(0deg) rotateY(0deg);
+        -moz-transform:     rotateX(0deg) rotateY(0deg);
+        -ms-transform:      rotateX(0deg) rotateY(0deg);
+        -o-transform:       rotateX(0deg) rotateY(0deg);
+        transform:          rotateX(0deg) rotateY(0deg);
     }
 
 @media (min-width: 768px) {
