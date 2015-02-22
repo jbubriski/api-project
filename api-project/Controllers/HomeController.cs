@@ -14,8 +14,6 @@ namespace api_project.Controllers
 {
     public class HomeController : Controller
     {
-        private string _defaultIpAddress = "";
-
         public ActionResult Index()
         {
             return View();
