@@ -37,8 +37,16 @@ namespace api_project.Services
             // Attribution-ShareAlike License
             request.AddQueryParameter("license", "5");
 
+            // Radial geo query
+            request.AddQueryParameter("lat", latitude.ToString());
+            request.AddQueryParameter("lon", longitude.ToString());
+            request.AddQueryParameter("radius", "5");
+            request.AddQueryParameter("radius_units", "mi");
+
+            request.AddQueryParameter("extras", "owner_name,date_taken,description,license,geo");
+
             // North, South, East, West for a bounding box of locations.
-            request.AddQueryParameter("bbox", string.Format("{0},{1},{2},{3}", (longitude - 1m), (latitude - 1m), (longitude + 1m), (latitude + 1m)));
+            //request.AddQueryParameter("bbox", string.Format("{0},{1},{2},{3}", (longitude - 0.1m), (latitude - 0.1m), (longitude + 0.1m), (latitude + 0.1m)));
 
             var restClient = new RestClient(_flickrEndpoint);
 

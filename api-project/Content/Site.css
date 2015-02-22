@@ -65,6 +65,7 @@ input[type="checkbox"].input-validation-error {
         transform-style: preserve-3d;
         backface-visibility: hidden;
         transition: all .4s ease-in-out;
+        padding: 10px;
     }
 
     #container .picture:hover .back {
