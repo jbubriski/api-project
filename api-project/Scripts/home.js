@@ -13,7 +13,19 @@
 
             self.location = ko.computed(function () {
                 return self.city() + ', ' + self.region();
-            }, self);
+            });
+
+            self.pictureUrl = function (picture) {
+                return 'https://farm' + picture.farm + '.staticflickr.com/' + picture.server + '/' + picture.id + '_' + picture.secret + '.jpg';
+            };
+
+            self.picturePageUrl = function (picture) {
+                return 'https://www.flickr.com/photos/' + picture.owner + '/' + picture.id;
+            };
+
+            self.userUrl = function (picture) {
+                return 'https://www.flickr.com/people/' + picture.owner;
+            };
 
             self.loadPictures = function(latitude, longitude) {
                 $.ajax({
@@ -36,7 +48,7 @@
                         $container.imagesLoaded(function() {
                             $container.masonry({
                                 columnWidth: 200,
-                                itemSelector: 'div'
+                                itemSelector: 'div.picture'
                             });
                         });
                     },

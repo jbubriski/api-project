@@ -11,14 +11,9 @@
         <p data-bind="visible: city()">It looks like you live in or near <span data-bind="text: location"></span></p>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        All images found on Flickr, licensed under the <a href="https://creativecommons.org/licenses/by-sa/2.0/">Attribution-ShareAlike 2.0 Generic License (CC BY-SA 2.0)</a> (<a href="https://creativecommons.org/licenses/by-sa/2.0/legalcode">Full license text</a>).
     </div>
 </div>
 
@@ -27,14 +22,18 @@
 <h2 style="display: none" data-bind="visible: pictures().length > 0 && requestMade">We Found Some Images Near You...</h2>
 
 <div id="container" data-bind="foreach: pictures">
-    <div><img data-bind="attr: { src: 'https://farm' + farm + '.staticflickr.com/' + server + '/' + id + '_' + secret + '.jpg', alt: title }" class="img-thumbnail" /></div>
+    <div class="picture">
+        <div class="front">
+            <img data-bind="attr: { src: $root.pictureUrl($data), alt: title }" class="img-thumbnail" />
+        </div>
+        <div class="back">
+            <br />
+            <a data-bind="attr: { href: $root.picturePageUrl($data) }">View image on Flickr</a>
+            <br />
+            <a data-bind="attr: { href: $root.userUrl($data) }">View user on Flickr</a>
+        </div>
+    </div>
 </div>
-
-<style type="text/css">
-    #container img {
-        width: 200px;
-    }
-</style>
 
 @section scripts
 {
