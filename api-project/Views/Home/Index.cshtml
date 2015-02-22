@@ -37,9 +37,9 @@
         </div>
     </div>
 </div>
-<h2 data-bind="visible: pictures().length == 0 && !requestMade">Finding Images Near You...</h2>
-<h2 style="display: none" data-bind="visible: pictures().length == 0 && requestMade">No Images Found Near You!?</h2>
-<h2 style="display: none" data-bind="visible: pictures().length > 0 && requestMade">We Found Some Images Near You...</h2>
+<h2 data-bind="visible: visiblePictures().length == 0 && !requestMade()">Finding Images Near You...</h2>
+<h2 style="display: none" data-bind="visible: visiblePictures().length == 0 && requestMade()">No Images Found Near You!?</h2>
+<h2 style="display: none" data-bind="visible: visiblePictures().length > 0 && requestMade()">We Found Some Images Near You...</h2>
 
 <div id="container" data-bind="foreach: { data: visiblePictures, afterAdd: appendToMasonry }">
     <div class="picture">
