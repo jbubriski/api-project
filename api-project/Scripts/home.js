@@ -28,6 +28,10 @@
                 return 'https://www.flickr.com/people/' + picture.owner;
             };
 
+            self.mapsUrl = function (picture) {
+                return 'http://maps.google.com/maps?z=12&t=k&q=loc:' + picture.latitude + '+' + picture.longitude;
+            };
+
             self.appendToMasonry = function (element, index, data) {
                 var $container = $('#container');
                 
@@ -44,6 +48,9 @@
                 var count = self.pictures().length > max ? max : self.pictures().length;
 
                 self.visiblePictures.splice.apply(self.visiblePictures, [self.visiblePictures().length, 0].concat(self.pictures.splice(0, count)));
+
+                console.log('Visible pictures');
+                console.log(self.visiblePictures());
             };
 
             self.loadPictures = function(latitude, longitude) {

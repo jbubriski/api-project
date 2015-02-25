@@ -58,9 +58,11 @@
                 <br />
                 At <span data-bind="html: latitude"></span>, <span data-bind="html: longitude"></span>
                 <br />
-                <a data-bind="attr: { href: $root.picturePageUrl($data) }">View image on Flickr</a>
+                <a target="_blank" data-bind="attr: { href: $root.mapsUrl($data) }">View location on google maps</a>
                 <br />
-                <a data-bind="attr: { href: $root.userUrl($data) }">View user on Flickr</a>
+                <a target="_blank" data-bind="attr: { href: $root.picturePageUrl($data) }">View image on Flickr</a>
+                <br />
+                <a target="_blank" data-bind="attr: { href: $root.userUrl($data) }">View user on Flickr</a>
             </div>
         </div>
     </div>
